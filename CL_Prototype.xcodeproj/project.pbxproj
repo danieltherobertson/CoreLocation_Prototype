@@ -14,6 +14,7 @@
 		65E87A471BEF73C6009C9089 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65E87A451BEF73C6009C9089 /* LaunchScreen.storyboard */; };
 		65E87A521BEF73C6009C9089 /* CL_PrototypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E87A511BEF73C6009C9089 /* CL_PrototypeTests.swift */; };
 		65E87A5D1BEF73C6009C9089 /* CL_PrototypeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E87A5C1BEF73C6009C9089 /* CL_PrototypeUITests.swift */; };
+		65E87A6D1BF0056D009C9089 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E87A6C1BF0056D009C9089 /* Question.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		65E87A581BEF73C6009C9089 /* CL_PrototypeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CL_PrototypeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65E87A5C1BEF73C6009C9089 /* CL_PrototypeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CL_PrototypeUITests.swift; sourceTree = "<group>"; };
 		65E87A5E1BEF73C6009C9089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65E87A6C1BF0056D009C9089 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				65E87A3C1BEF73C6009C9089 /* AppDelegate.swift */,
 				65E87A3E1BEF73C6009C9089 /* ViewController.swift */,
+				65E87A6C1BF0056D009C9089 /* Question.swift */,
 				65E87A401BEF73C6009C9089 /* Main.storyboard */,
 				65E87A431BEF73C6009C9089 /* Assets.xcassets */,
 				65E87A451BEF73C6009C9089 /* LaunchScreen.storyboard */,
@@ -257,6 +260,7 @@
 			files = (
 				65E87A3F1BEF73C6009C9089 /* ViewController.swift in Sources */,
 				65E87A3D1BEF73C6009C9089 /* AppDelegate.swift in Sources */,
+				65E87A6D1BF0056D009C9089 /* Question.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
