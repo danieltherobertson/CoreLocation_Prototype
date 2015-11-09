@@ -11,10 +11,14 @@ import Foundation
 class Question:NSObject {
     
     var title: String!
+    var acceptedAnswers: [String]
     
     
-    init(title:String) {
-        super.init()
+    init(title:String, acceptedAnswers:[String]) {
+        
         self.title = title
+        self.acceptedAnswers = acceptedAnswers
+        
+        super.init()
     }
 }
