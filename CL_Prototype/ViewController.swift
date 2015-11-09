@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
 
     var name:String!
     var gender:String!
-    var homeLocation:CLLocation?
+    var homeLocation:CLPlacemark?
     
     var input:UITextField!
     var output:UILabel!
@@ -107,15 +107,33 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             
         } else if activeQuestion == questions[2] {
             if input.text == question3.acceptedAnswers[0] {
-                homeLocation = locationManager.location
+                if let location = locationManager.location {
+                    reverseGeocode(location, completion: { (returnedLocation:CLPlacemark) in
+                       
+                        self.homeLocation = returnedLocation
+                        
+                        print(returnedLocation)
+                        print(returnedLocation.name)
+                        print(returnedLocation.country)
+                        
+                        let ac = UIAlertController(title: "Home Location", message: "Home location set to \(returnedLocation.name!), \(returnedLocation.thoroughfare!), \(returnedLocation.postalCode!), \(returnedLocation.country!)", preferredStyle: .Alert)
+                        ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
+                        self.presentViewController(ac, animated: true, completion: nil)
+                        
+                    })
+                    
+
+                }
                 
-                let ac = UIAlertController(title: "Home Location", message: "Home location set to \(homeLocation)", preferredStyle: .Alert)
-                ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
-                presentViewController(ac, animated: true, completion: nil)
+                input.text = nil
+                output.text = "End of prototype"
 
                 
             } else if input.text == question3.acceptedAnswers[1] {
-                
+                let ac = UIAlertController(title: "Scan Error", message: "Please consult your AF74 owner's guide for assistance.", preferredStyle: .Alert)
+                ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
+                presentViewController(ac, animated: true, completion: nil)
+                input.text = nil //Clears text field
             }
     
             
@@ -126,8 +144,17 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last
         
-        if let newLocation = newLocation {
-            
+//        if let newLocation = newLocation {
+//            
+//        }
+    }
+    
+    func reverseGeocode (location: CLLocation, completion:(returnedLocation:CLPlacemark)->Void) {
+        CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) -> Void in
+            if let placemark = placemark{
+
+                    completion(returnedLocation: placemark[0])
+            }
         }
     }
 
