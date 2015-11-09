@@ -20,9 +20,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     var question1:Question!
     var question2:Question!
+    var question3:Question!
 
     var name:String!
     var gender:String!
+    var homeLocation:CLLocation?
     
     var input:UITextField!
     var output:UILabel!
@@ -33,9 +35,10 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         //Creates questions
         question1 = Question(title: "What's your name?", acceptedAnswers:[""])
         question2 = Question(title: "Hello, \(name), what's your gender?", acceptedAnswers: ["Male","Female","Boy","Girl"])
+        question3 = Question(title: "Is your current location your home?", acceptedAnswers: ["Yes","No"])
         
         //Adds questions to questions array
-        questions += [question1,question2]
+        questions += [question1,question2,question3]
         
         
         //Sets default active question to Q1
@@ -73,13 +76,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         if activeQuestion == questions[0] { //If activeQuestion is Q1
             if input.text != "" { //If the user types something as their name
                 name = input.text //Saves the name to var: name
-                question2.title = "Hello, \(name), what's your gender?" //Changes Q2.title to include var: name
+                question2.title = "Hello, \(name). Gender scan failed, please manually input your gender." //Changes Q2.title to include var: name
                 input.text = nil //Clears input.text, setting up for Q2
                 activeQuestion = questions[1] //Moves the activeQuestion on to Q2
                 output.text = activeQuestion.title //Changes output.text to display Q2.title
             } else { //Else if the user types nothing
-                let ac = UIAlertController(title: "No Name Entered", message: "You haven't entered anything, try again retard!", preferredStyle: .Alert)
-                ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                let ac = UIAlertController(title: "System Error: 3230_ac334", message: "My scans detect no user input", preferredStyle: .Alert)
+                ac.addAction(UIAlertAction(title: "Reset Question", style: .Default, handler: nil))
                 presentViewController(ac, animated: true, completion: nil)
                 input.text = nil //Clears text field
             }
@@ -88,31 +91,45 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         } else if activeQuestion == questions[1] { //Or if activeQuestion is Q2
             if let index = question2.acceptedAnswers.indexOf(input.text!) { //Checks if input.text = any accepted answer of Q2
                 gender = question2.acceptedAnswers[index] //Saves the selected gender to var: gender
+                question3.title = "Gender: '\(gender)' saved. Is your current location your home?"
+                input.text = nil
+                activeQuestion = questions[2]
+                output.text = activeQuestion.title
+                
+                print(name,", ", gender)
             } else { //If input.text doesn't = any accepted answer of Q2
-                let ac = UIAlertController(title: "Invalid Gender", message: "Accepted answers: Male, Female, Boy, Girl", preferredStyle: .Alert)
-                ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                let ac = UIAlertController(title: "I'm sorry, I don't understand that.", message: "Accepted answers: Male, Female, Boy, Girl", preferredStyle: .Alert)
+                ac.addAction(UIAlertAction(title: "Reset Question", style: .Default, handler: nil))
                 presentViewController(ac, animated: true, completion: nil)
                 input.text = nil //Clears text field
             }
             return true
+            
+        } else if activeQuestion == questions[2] {
+            if input.text == question3.acceptedAnswers[0] {
+                homeLocation = locationManager.location
+                
+                let ac = UIAlertController(title: "Home Location", message: "Home location set to \(homeLocation)", preferredStyle: .Alert)
+                ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
+                presentViewController(ac, animated: true, completion: nil)
 
+                
+            } else if input.text == question3.acceptedAnswers[1] {
+                
+            }
+    
+            
         }
-        
-        return true
+         return true
     }
  
-//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let newLocation = locations.last
-//        
-//        if let newLocation = newLocation {
-//            let randomIndex = Int(arc4random_uniform(UInt32(words.count)))
-//
-//            
-//    
-//        }
-//       
-//
-//    }
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let newLocation = locations.last
+        
+        if let newLocation = newLocation {
+            
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
