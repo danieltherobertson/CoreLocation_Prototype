@@ -48,16 +48,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         //Draw content+layout
         output = UILabel(frame:CGRectMake(30, 250, screenWidth-60, 100))
         output.text = activeQuestion.title
-        output.font = UIFont(name: "Avenir-Heavy", size: 16)
-        output.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        output.font = UIFont(name: "Menlo-Regular", size: 16)
+        output.textColor = UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 1.0)
         output.textAlignment = NSTextAlignment.Center
         output.numberOfLines = 0
         self.view.addSubview(output)
 
         input = UITextField(frame: CGRectMake(30, 410, screenWidth-60, 60))
-        input.placeholder = "Type shit here"
-        input.font = UIFont(name: "Avenir-Heavy", size: 16)
-        input.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        input.attributedPlaceholder =  NSAttributedString(string: "Type shit here", attributes: [NSForegroundColorAttributeName:UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 0.7)])
+        input.font = UIFont(name: "Menlo-Regular", size: 16)
+        input.textColor = UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 1.0)
         input.textAlignment = NSTextAlignment.Center
         input.autocapitalizationType = UITextAutocapitalizationType.Sentences
         input.delegate = self
@@ -68,7 +68,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         locationManager.distanceFilter = 100.0 //Location will only update if they move more than 100 metres
         locationManager.startUpdatingLocation()
         
-        view.backgroundColor = UIColor.lightGrayColor()
+        view.backgroundColor = UIColor.blackColor()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -128,9 +128,10 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 input.text = nil
                 output.text = "End of prototype"
                 input.enabled = false
+                input.attributedPlaceholder =  NSAttributedString(string: "System Disabled, Contact Admin ", attributes: [NSForegroundColorAttributeName:UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 0.7)])
 
                 
-            } else if input.text == question3.acceptedAnswers[1] {
+            } else if input.text == question3.acceptedAnswers[1] || input.text != question3.acceptedAnswers[0] || input.text != question3.acceptedAnswers[1] {
                 let ac = UIAlertController(title: "Have you enabled Location Services?", message: "I won't tell the NSA where you are, I promise.", preferredStyle: .Alert)
                 ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
                 presentViewController(ac, animated: true, completion: nil)
