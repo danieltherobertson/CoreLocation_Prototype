@@ -107,7 +107,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             
         } else if activeQuestion == questions[2] {
             if input.text == question3.acceptedAnswers[0] {
-                if let location = locationManager.location {
+                if let location = locationManager.location { //This func and closure convertlocation from CLLocation to CLPlacemark, so it's readable
                     reverseGeocode(location, completion: { (returnedLocation:CLPlacemark) in
                        
                         self.homeLocation = returnedLocation
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                         print(returnedLocation.name)
                         print(returnedLocation.country)
                         
-                        let ac = UIAlertController(title: "Home Location", message: "Home location set to \(returnedLocation.name!), \(returnedLocation.thoroughfare!), \(returnedLocation.postalCode!), \(returnedLocation.country!)", preferredStyle: .Alert)
+                        let ac = UIAlertController(title: "Home Location", message: "Home location set to \(returnedLocation.name!), \(returnedLocation.thoroughfare!), \(returnedLocation.postalCode!), \(returnedLocation.country!).", preferredStyle: .Alert)
                         ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
                         self.presentViewController(ac, animated: true, completion: nil)
                         
@@ -127,10 +127,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 
                 input.text = nil
                 output.text = "End of prototype"
+                input.enabled = false
 
                 
             } else if input.text == question3.acceptedAnswers[1] {
-                let ac = UIAlertController(title: "Scan Error", message: "Please consult your AF74 owner's guide for assistance.", preferredStyle: .Alert)
+                let ac = UIAlertController(title: "Have you enabled Location Services?", message: "I won't tell the NSA where you are, I promise.", preferredStyle: .Alert)
                 ac.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
                 presentViewController(ac, animated: true, completion: nil)
                 input.text = nil //Clears text field
