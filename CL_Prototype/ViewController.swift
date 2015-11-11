@@ -11,8 +11,6 @@ import UIKit; import CoreLocation; import SnapKit;
 class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
-    var easterEgg = ["Fuck off", "Fuck you", "No"]
-    var words = ["spook", "doot", "calcium", "bones", "thank", "updoot"]
     let screenWidth = UIScreen.mainScreen().bounds.size.width
     let screenHeight = UIScreen.mainScreen().bounds.size.height
     var questions = [Question]()
@@ -86,14 +84,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        
-        if let index = easterEgg.indexOf(input.text!) {
-            output.text = "Is this a game to you motherfucker?! Manual reset initialised."
-            input.text = nil
-            activeQuestion == questions[0]
-            return true
-        }
-        
         if activeQuestion == questions[0] { //If activeQuestion is Q1
             if input.text != "" { //If the user types something as their name
                 name = input.text //Saves the name to var: name
@@ -150,6 +140,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 input.text = nil
                 output.text = "End of prototype"
                 input.enabled = false
+             //   input.removeFromSuperview() //
                 input.attributedPlaceholder =  NSAttributedString(string: "System Disabled, Contact Admin ", attributes: [NSForegroundColorAttributeName:UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 0.7)])
 
                 
