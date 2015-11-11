@@ -11,6 +11,7 @@ import UIKit; import CoreLocation
 class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
+    var easterEgg = ["Fuck off", "Fuck you", "No"]
     var words = ["spook", "doot", "calcium", "bones", "thank", "updoot"]
     let screenWidth = UIScreen.mainScreen().bounds.size.width
     let screenHeight = UIScreen.mainScreen().bounds.size.height
@@ -47,7 +48,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         
         //Draw content+layout
-        output = PaddedLabel(frame:CGRectMake(10, 250, screenWidth-20, 100))
+        output = PaddedLabel(frame:CGRectMake(10, 270, screenWidth-20, 100))
         output.text = activeQuestion.title
         output.font = UIFont(name: "Menlo-Regular", size: 16)
         output.textColor = UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 1.0)
@@ -85,6 +86,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        if let index = easterEgg.indexOf(input.text!) {
+            output.text = "Is this a game to you motherfucker?! Manual reset initialised."
+            input.text = nil
+            activeQuestion == questions[0]
+            return true
+        }
+        
         if activeQuestion == questions[0] { //If activeQuestion is Q1
             if input.text != "" { //If the user types something as their name
                 name = input.text //Saves the name to var: name
