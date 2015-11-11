@@ -6,7 +6,7 @@
 //  Copyright © 2015 Daniel Robertson. All rights reserved.
 //
 
-import UIKit; import CoreLocation
+import UIKit; import CoreLocation; import SnapKit;
 
 class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
