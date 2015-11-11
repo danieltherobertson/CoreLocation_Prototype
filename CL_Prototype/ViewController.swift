@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     var input:UITextField!
     var output:UILabel!
+    var inputBorder:UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,22 +47,34 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         
         //Draw content+layout
-        output = UILabel(frame:CGRectMake(30, 250, screenWidth-60, 100))
+        output = PaddedLabel(frame:CGRectMake(10, 250, screenWidth-20, 100))
         output.text = activeQuestion.title
         output.font = UIFont(name: "Menlo-Regular", size: 16)
         output.textColor = UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 1.0)
-        output.textAlignment = NSTextAlignment.Center
+        output.textAlignment = NSTextAlignment.Left
         output.numberOfLines = 0
-        self.view.addSubview(output)
+        output.layer.borderColor = (UIColor.greenColor().CGColor)
+        output.layer.borderWidth = 1.0
+        view.addSubview(output)
 
-        input = UITextField(frame: CGRectMake(30, 410, screenWidth-60, 60))
+        input = UITextField(frame: CGRectMake(10, 400, screenWidth-20, 40))
         input.attributedPlaceholder =  NSAttributedString(string: "Type shit here", attributes: [NSForegroundColorAttributeName:UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 0.7)])
         input.font = UIFont(name: "Menlo-Regular", size: 16)
         input.textColor = UIColor(red: 77/255, green: 192/255, blue: 86/255, alpha: 1.0)
-        input.textAlignment = NSTextAlignment.Center
+        input.textAlignment = NSTextAlignment.Left
+        input.leftView = UIView(frame: CGRectMake(0, 0, 10, 40))
+        input.leftViewMode = UITextFieldViewMode.Always
         input.autocapitalizationType = UITextAutocapitalizationType.Sentences
+        input.keyboardAppearance = UIKeyboardAppearance.Dark
+        input.layer.borderColor = (UIColor.greenColor().CGColor)
+        input.layer.borderWidth = 1.0
         input.delegate = self
-        self.view.addSubview(input)
+        view.addSubview(input)
+        
+//        var inputBorder = UIView(frame: CGRectMake(20, screenHeight/2-74, screenWidth-40, 1))
+//        inputBorder.backgroundColor = UIColor.lightGrayColor()
+//        view.addSubview(inputBorder)
+        
         
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
@@ -72,7 +85,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-
         if activeQuestion == questions[0] { //If activeQuestion is Q1
             if input.text != "" { //If the user types something as their name
                 name = input.text //Saves the name to var: name
@@ -80,6 +92,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 input.text = nil //Clears input.text, setting up for Q2
                 activeQuestion = questions[1] //Moves the activeQuestion on to Q2
                 output.text = activeQuestion.title //Changes output.text to display Q2.title
+           //     output.sizeToFit()
             } else { //Else if the user types nothing
                 let ac = UIAlertController(title: "System Error: 3230_ac334", message: "My scans detect no user input", preferredStyle: .Alert)
                 ac.addAction(UIAlertAction(title: "Reset Question", style: .Default, handler: nil))
